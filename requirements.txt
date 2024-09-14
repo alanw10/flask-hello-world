@@ -39,8 +39,8 @@ h11==0.14.0
 httplib2==0.22.0
 idna==2.10
 intel-openmp==2021.4.0
-ipykernel==6.29.4
-ipython==8.24.0
+ipykernel
+ipython
 itsdangerous==2.1.2
 jedi==0.19.1
 Jinja2==3.1.2
@@ -73,7 +73,7 @@ pandocfilters==1.5.1
 parso==0.8.4
 pickleshare==0.7.5
 pillow==10.2.0
-pipreqs==0.5.0
+pipreqs
 platformdirs==4.2.2
 prompt_toolkit==3.0.45
 protobuf==4.25.2
