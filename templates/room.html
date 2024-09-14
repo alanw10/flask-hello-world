@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Who</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/room.css')}}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='board.js') }}"></script>
+    
+</head>
+<body>
+    <div class="topnav">
+        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+            <i class="fa fa-bars"></i>
+        </a>
+        <a class="active"></a>
+        <div id="myLinks">
+            <a href="javascript:void(0);" onclick="leaveRoom()">Leave Game</a>
+
+        </div>
+    </div>
+    <div class="App">
+        <header class="App-header">
+            <div class="container">
+                <!-- Character cards will be dynamically inserted here -->
+            </div>
+        </header>
+    
+    <script src="{{ url_for('static', filename='board.js') }}"></script>
+
+    <script>
+        function toggleMenu() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+
+        
+        function leaveRoom() {
+            window.location.href = '/'; 
+        }
+       
+    </script>
+        <div class = "message-box">
+            <h2>Game Code: {{code}}</h2>
+            <div class = "messages" id="messages"> </div>
+            <div class = "inputs">
+                <input type = "text" rows = "3" placeholder="Message" name = "message" id = "message"/>
+                <button type = "button" name = "send" class = "sent-btn" id = "sent-btn" onClick = "sendMessage()">
+                    Send 
+                </button>
+            </div>
+        </div>
+        <script type = "text/javascript">
+            var socketio = io();
+            const messages = document.getElementById("messages")
+            const createMessage = (name, msg, time) => {
+                const content = `
+                <div class = "text">
+                <div>
+                    <span>
+                        <strong>${name}</strong>: ${msg}
+                    </span>
+                    <span class = "muted">
+                        ${time}
+                </div>
+        
+                    `;
+                    messages.innerHTML += content;
+                    messages.scrollTop = messages.scrollHeight;
+
+                }
+                socketio.on("message", (data) => {
+                    createMessage(data.name, data.message, data.time);
+                    
+                });
+                const sendMessage = () => {
+                    const message = document.getElementById("message")
+                    if (message.value == "") return;
+                    socketio.emit("message", {data: message.value})
+                    message.value = "";
+                }
+                const messageInput = document.getElementById("message");
+                messageInput.addEventListener("keydown", function(event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault(); 
+                        sendMessage(); 
+                    }
+                });
+            </script>
+            
+            {% for msg in messages %}
+                <script> type = "text/javascript"
+                    createMessage("{{msg.name}}", "{{msg.message}}", "{{msg.time}}");
+                </script>
+            {% endfor %}
+            
+    </div>
+</div>
+</body>
+</html> 

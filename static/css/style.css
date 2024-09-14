@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+}
+
+.home-background {
+    background-color: #f2f2f2;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.study {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.username,
+.room-code {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.username input,
+.room-code input {
+    width: calc(100% - 40px);
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.join-button,
+.create-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.join-button:hover,
+.create-btn:hover {
+    background-color: #0056b3;
+}
